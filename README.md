@@ -104,11 +104,16 @@ Ejemplos:
 
 `http://localhost:8080`
 
-## Próximos pasos
+## Material complementario: prototipo navegable y archivo de diseño en Figma. 
 
-- Implementar las historias de mayor prioridad.
-- Crear las entidades del sistema.
-- Conectar la aplicación con MySQL o base de datos que usemos.
-- Implementar los módulos de préstamo y devolución.
-- Incorporar autenticación y roles.
-- Continuar el trabajo mediante ramas y Pull Requests.
+## Prototipo navegable
+
+https://www.figma.com/proto/4JINLBWM0u1wLHN6QnQHp5/Proyecto-SFPE?node-id=11-2&starting-point-node-id=11%3A2
+
+## Archivo de diseño
+
+https://www.figma.com/design/4JINLBWM0u1wLHN6QnQHp5/Proyecto-SFPE?node-id=0-1&t=jDYCaR7mjbCCgike-1
+
+## GitHub del proyecto
+
+https://github.com/elyeye4/SGPE_Grupo4.git
