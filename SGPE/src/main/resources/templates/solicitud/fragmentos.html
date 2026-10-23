@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+        <section th:fragment="listado">
+            <h1 class="h3 mb-4">[[#{solicitud.misSolicitudes}]]</h1>
+
+            <div th:if="${#lists.isEmpty(solicitudes)}"
+                 class="alert alert-info">
+                [[#{solicitud.sinRegistros}]]
+            </div>
+
+            <div th:unless="${#lists.isEmpty(solicitudes)}"
+                 class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>[[#{solicitud.numero}]]</th>
+                            <th>[[#{solicitud.equipo}]]</th>
+                            <th>[[#{solicitud.fechaSolicitud}]]</th>
+                            <th>[[#{solicitud.fechaInicio}]]</th>
+                            <th>[[#{solicitud.fechaDevolucion}]]</th>
+                            <th>[[#{solicitud.estado}]]</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="solicitud : ${solicitudes}">
+                            <td th:text="${solicitud.idPrestamo}"></td>
+
+                            <td th:text="${solicitud.equipo.nombreEquipo}">
+                            </td>
+
+                            <td th:text="${solicitud.fechaSolicitud}">
+                            </td>
+
+                            <td th:text="${solicitud.fechaInicio}"></td>
+
+                            <td th:text="${solicitud.fechaDevolucionLimite}">
+                            </td>
+
+                            <td>
+                                <span class="badge text-bg-secondary"
+                                      th:text="${solicitud.estado.nombreEstado}">
+                                </span>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm"
+                                   th:href="@{/solicitud/detalle/{id}(id=${solicitud.idPrestamo})}">
+                                    [[#{solicitud.verDetalle}]]
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section th:fragment="detalle">
+            <h1 class="h3 mb-4">[[#{solicitud.detalle}]]</h1>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">
+                            [[#{solicitud.numero}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.idPrestamo}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.equipo}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.equipo.nombreEquipo}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.descripcionEquipo}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.equipo.descripcionEquipo}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.fechaSolicitud}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.fechaSolicitud}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.fechaInicio}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.fechaInicio}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.fechaDevolucion}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.fechaDevolucionLimite}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.estado}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.estado.nombreEstado}">
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            [[#{solicitud.observaciones}]]
+                        </dt>
+                        <dd class="col-sm-8"
+                            th:text="${solicitud.observacionesPrestamo}">
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <a class="btn btn-secondary mt-3"
+               th:href="@{/solicitud/mis-solicitudes}">
+                [[#{solicitud.regresar}]]
+            </a>
+        </section>
+    </body>
+</html>
