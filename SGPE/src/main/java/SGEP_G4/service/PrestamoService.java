@@ -29,4 +29,6 @@ public class PrestamoService {
                 .findByIdPrestamoAndUsuarioSolicitante_Username(
                         idPrestamo, username);
     }
+    
+    //Prueba repositorio
 }
