@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <main class="container py-5">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h1 class="h4 mb-4">
+                        Solicitar préstamo
+                    </h1>
+
+                    <form th:action="@{/solicitud/guardar}"
+                          th:object="${prestamo}"
+                          method="post">
+
+                        <input type="hidden"
+                               name="idEquipo"
+                               th:value="${idEquipo}"/>
+
+                        <div class="mb-3">
+                            <label for="fechaInicio"
+                                   class="form-label">
+                                Fecha de inicio
+                            </label>
+
+                            <input type="date"
+                                   id="fechaInicio"
+                                   th:field="*{fechaInicio}"
+                                   class="form-control"
+                                   required/>
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('fechaInicio')}"
+                                 th:errors="*{fechaInicio}">
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fechaDevolucionLimite"
+                                   class="form-label">
+                                Fecha de devolución
+                            </label>
+
+                            <input type="date"
+                                   id="fechaDevolucionLimite"
+                                   th:field="*{fechaDevolucionLimite}"
+                                   class="form-control"
+                                   required/>
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('fechaDevolucionLimite')}"
+                                 th:errors="*{fechaDevolucionLimite}">
+                            </div>
+
+                            <div class="text-danger"
+                                 th:if="${errorFecha != null}"
+                                 th:text="${errorFecha}">
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="observacionesPrestamo"
+                                   class="form-label">
+                                Observaciones
+                            </label>
+
+                            <textarea id="observacionesPrestamo"
+                                      th:field="*{observacionesPrestamo}"
+                                      class="form-control"
+                                      rows="3">
+                            </textarea>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Solicitar préstamo
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+</html>
