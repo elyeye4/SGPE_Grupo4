@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <main class="container py-5">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h1 class="h4 mb-4">
+                        Disponibilidad del equipo
+                    </h1>
+
+                    <p>
+                        <strong>Equipo:</strong>
+                        <span th:text="${equipo.nombreEquipo}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Estado:</strong>
+                        <span th:text="${equipo.estado.nombreEstado}"></span>
+                    </p>
+
+                    <div th:if="${equipo.estado.nombreEstado == 'DISPONIBLE'}">
+
+                        <div class="alert alert-success">
+                            El equipo se encuentra disponible para préstamo.
+                        </div>
+
+                        <a th:href="@{/solicitud/nueva/{idEquipo}(idEquipo=${equipo.idEquipo})}"
+                           class="btn btn-primary">
+
+                            Solicitar préstamo
+
+                        </a>
+
+                    </div>
+
+                    <div th:unless="${equipo.estado.nombreEstado == 'DISPONIBLE'}"
+                         class="alert alert-warning">
+
+                        El equipo no se encuentra disponible para préstamo.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+</html>

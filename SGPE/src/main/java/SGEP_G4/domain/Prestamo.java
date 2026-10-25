@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -26,9 +27,11 @@ public class Prestamo implements Serializable {
     private LocalDateTime fechaSolicitud;
 
     @Column(name = "FECHA_INICIO")
+    @NotNull
     private LocalDate fechaInicio;
 
     @Column(name = "FECHA_DEVOLUCION_LIMITE")
+    @NotNull
     private LocalDate fechaDevolucionLimite;
 
     @Column(name = "FECHA_APROBACION")
