@@ -30,6 +30,10 @@ public class Equipo implements Serializable {
     private String rutaImagen;
 
     @ManyToOne
+    @JoinColumn(name = "ID_CATEGORIA")
+    private Categoria categoria;
+
+    @ManyToOne
     @JoinColumn(name = "ID_ESTADO")
     private Estado estado;
 }
