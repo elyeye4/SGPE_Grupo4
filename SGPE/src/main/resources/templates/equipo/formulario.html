@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}">
+    </head>
+
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}">
+        </header>
+
+        <main class="container py-5">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <!-- Formulario unificado: registrar (HU16) y editar (HU17) -->
+                    <h1 class="h4 mb-4"
+                        th:text="${equipo.idEquipo == null} ? #{equipo.registrar} : #{equipo.editar}">
+                    </h1>
+
+                    <form th:action="@{/equipo/guardar}"
+                          th:object="${equipo}"
+                          method="post">
+
+                        <input type="hidden" th:field="*{idEquipo}"/>
+
+                        <div class="mb-3">
+                            <label for="nombreEquipo" class="form-label">
+                                [[#{equipo.nombre}]]
+                            </label>
+
+                            <input type="text"
+                                   id="nombreEquipo"
+                                   th:field="*{nombreEquipo}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('nombreEquipo')} ? 'is-invalid'"
+                                   maxlength="80"
+                                   required/>
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('nombreEquipo')}"
+                                 th:errors="*{nombreEquipo}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descripcionEquipo" class="form-label">
+                                [[#{equipo.descripcion}]]
+                            </label>
+
+                            <textarea id="descripcionEquipo"
+                                      th:field="*{descripcionEquipo}"
+                                      class="form-control"
+                                      th:classappend="${#fields.hasErrors('descripcionEquipo')} ? 'is-invalid'"
+                                      maxlength="250"
+                                      rows="3"></textarea>
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('descripcionEquipo')}"
+                                 th:errors="*{descripcionEquipo}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="categoria" class="form-label">
+                                    [[#{equipo.categoria}]]
+                                </label>
+
+                                <select id="categoria"
+                                        name="categoria.idCategoria"
+                                        class="form-select"
+                                        th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid'"
+                                        required>
+                                    <option value="">[[#{equipo.seleccione}]]</option>
+                                    <option th:each="c : ${categorias}"
+                                            th:value="${c.idCategoria}"
+                                            th:text="${c.nombreCategoria}"
+                                            th:selected="${equipo.categoria != null and equipo.categoria.idCategoria == c.idCategoria}">
+                                    </option>
+                                </select>
+
+                                <div class="text-danger"
+                                     th:if="${#fields.hasErrors('categoria')}"
+                                     th:errors="*{categoria}">
+                                </div>
+                            </div>
+
+                            <!-- El estado solo se edita; un equipo nuevo siempre queda DISPONIBLE -->
+                            <div class="col-md-6 mb-3" th:if="${equipo.idEquipo != null}">
+                                <label for="estado" class="form-label">
+                                    [[#{equipo.estado}]]
+                                </label>
+
+                                <select id="estado"
+                                        name="estado.idEstado"
+                                        class="form-select"
+                                        th:classappend="${#fields.hasErrors('estado')} ? 'is-invalid'"
+                                        required>
+                                    <option th:each="e : ${estados}"
+                                            th:value="${e.idEstado}"
+                                            th:text="${e.nombreEstado}"
+                                            th:selected="${equipo.estado != null and equipo.estado.idEstado == e.idEstado}">
+                                    </option>
+                                </select>
+
+                                <div class="text-danger"
+                                     th:if="${#fields.hasErrors('estado')}"
+                                     th:errors="*{estado}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rutaImagen" class="form-label">
+                                [[#{equipo.imagen}]]
+                            </label>
+
+                            <input type="url"
+                                   id="rutaImagen"
+                                   th:field="*{rutaImagen}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('rutaImagen')} ? 'is-invalid'"
+                                   maxlength="1024"
+                                   placeholder="https://..."/>
+
+                            <div class="text-danger"
+                                 th:if="${#fields.hasErrors('rutaImagen')}"
+                                 th:errors="*{rutaImagen}">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                [[#{accion.guardar}]]
+                            </button>
+
+                            <a th:href="@{/equipo/listado}"
+                               class="btn btn-secondary">
+                                [[#{accion.cancelar}]]
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}">
+        </footer>
+
+    </body>
+</html>

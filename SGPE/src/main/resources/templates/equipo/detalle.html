@@ -34,6 +34,11 @@
                             <a th:href="@{/equipo/listado}" class="btn btn-secondary">
                                 Volver al listado
                             </a>
+                            <a th:if="${esAdmin}"
+                               th:href="@{/equipo/modificar/{id}(id=${equipo.idEquipo})}"
+                               class="btn btn-warning">
+                                <i class="fas fa-pencil-alt"></i> [[#{accion.editar}]]
+                            </a>
                         </div>
                     </div>
                 </div>

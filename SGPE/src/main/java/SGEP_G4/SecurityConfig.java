@@ -28,6 +28,13 @@ public class SecurityConfig {
                         "/images/**",
                         "/webjars/**")
                 .permitAll()
+                // Registrar/editar equipos (HU16, HU17) y aprobar préstamos (HU18)
+                .requestMatchers(
+                        "/equipo/nuevo",
+                        "/equipo/modificar/**",
+                        "/equipo/guardar",
+                        "/prestamo/**")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
