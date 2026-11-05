@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}"></head>
+
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main class="container mt-4">
+            <h2>Listado de equipos</h2>
+
+            <form th:action="@{/equipo/listado}" method="get" class="row g-2 mb-3">
+                <div class="col-md-8">
+                    <input type="search" name="buscar" th:value="${buscar}"
+                           class="form-control" placeholder="Buscar equipos por nombre"
+                           aria-label="Buscar equipos por nombre" />
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-outline-secondary" th:href="@{/equipo/listado}">Ver todos</a>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del equipo</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Imagen</th>
+                            <th>Estado</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="equipo : ${equipos}">
+                            <td th:text="${equipo.idEquipo}"></td>
+                            <td th:text="${equipo.nombreEquipo}"></td>
+                            <td th:text="${equipo.descripcionEquipo}"></td>
+                            <td th:text="${equipo.categoria != null ? equipo.categoria.nombreCategoria : 'Sin categoría'}"></td>
+                            <td>
+                                <img th:if="${equipo.rutaImagen != null and !#strings.isEmpty(equipo.rutaImagen)}"
+                                     th:src="${equipo.rutaImagen}"
+                                     alt="Imagen del equipo" width="90"
+                                     class="img-thumbnail" />
+                            </td>
+                            <td th:text="${equipo.estado != null ? equipo.estado.nombreEstado : 'Sin estado'}"></td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm"
+                                   th:href="@{/equipo/detalle/{id}(id=${equipo.idEquipo})}">
+                                    Ver detalle
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(equipos)}">
+                            <td colspan="7" class="text-center">
+                                No se encontraron equipos.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    </body>
+</html>

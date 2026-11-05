@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{general/fragmentos :: head}"></head>
+
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main class="container mt-4">
+            <h2>Detalle del equipo</h2>
+
+            <div class="card shadow-sm mt-3">
+                <div class="row g-0">
+                    <div class="col-md-4 p-3 text-center">
+                        <img th:if="${equipo.rutaImagen != null and !#strings.isEmpty(equipo.rutaImagen)}"
+                             th:src="${equipo.rutaImagen}"
+                             class="img-fluid rounded" alt="Imagen del equipo"
+                             style="max-height: 280px; object-fit: contain;" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h3 class="card-title" th:text="${equipo.nombreEquipo}">Equipo</h3>
+                            <p><strong>ID:</strong> <span th:text="${equipo.idEquipo}"></span></p>
+                            <p><strong>Descripción:</strong>
+                                <span th:text="${equipo.descripcionEquipo}"></span>
+                            </p>
+                            <p><strong>Categoría:</strong>
+                                <span th:text="${equipo.categoria != null ? equipo.categoria.nombreCategoria : 'Sin categoría'}"></span>
+                            </p>
+                            <p><strong>Estado:</strong>
+                                <span th:text="${equipo.estado != null ? equipo.estado.nombreEstado : 'Sin estado'}"></span>
+                            </p>
+                            <a th:href="@{/equipo/listado}" class="btn btn-secondary">
+                                Volver al listado
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    </body>
+</html>
