@@ -39,6 +39,11 @@
                                class="btn btn-warning">
                                 <i class="fas fa-pencil-alt"></i> [[#{accion.editar}]]
                             </a>
+
+                            <a th:href="@{/equipo/disponibilidad/{idEquipo}(idEquipo=${equipo.idEquipo})}"
+                               class="btn btn-primary">
+                                Consultar disponibilidad
+                            </a>
                         </div>
                     </div>
                 </div>
