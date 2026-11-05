@@ -13,7 +13,7 @@ Desarrollar una aplicación web que permita gestionar el préstamo de equipos, d
 - Elías León Montero
 - Andrés Fernando Sánchez Morales
 
-## Tecnologías previstas
+## Tecnologías utilizadas
 
 - Java 21
 - Spring Boot
@@ -25,84 +25,150 @@ Desarrollar una aplicación web que permita gestionar el préstamo de equipos, d
 
 ## Estado actual
 
-Avance 1 - Semana 5.
+Avance 2 - Semana 9.
 
 Actualmente se cuenta con:
 
-- Definición del proyecto.
-- 20 historias de usuario.
-- Criterios de aceptación.
-- Backlog priorizado.
-- Prototipo de interfaces.
-- Mapa de navegación.
-- Modelo preliminar de datos.
-- Estructura inicial del proyecto.
+- Estructura del proyecto basada en MVC.
+- Conexión funcional con MySQL mediante Hibernate/JPA.
+- Uso de Thymeleaf y Bootstrap en las vistas.
+- Inicio y cierre de sesión.
+- Control de usuarios y roles.
+- Consulta y búsqueda de equipos.
+- Consulta del detalle de equipos.
+- Consulta de disponibilidad de equipos.
+- Registro de solicitudes de préstamo.
+- Selección y validación de fechas para préstamos.
+- Consulta de solicitudes realizadas por el usuario.
+- Registro y edición de equipos.
+- Aprobación de préstamos.
+- Repositorio GitHub actualizado.
+- Trabajo colaborativo mediante ramas y Pull Requests.
+
+## Historias de usuario implementadas
+
+Las siguientes historias de usuario se encuentran implementadas actualmente:
+
+- HU01 - Iniciar sesión.
+- HU02 - Cerrar sesión.
+- HU06 - Consultar equipos.
+- HU07 - Buscar equipos.
+- HU09 - Consultar detalle de equipos.
+- HU10 - Consultar disponibilidad.
+- HU11 - Solicitar préstamo.
+- HU12 - Seleccionar y validar fechas del préstamo.
+- HU13 - Consultar mis solicitudes.
+- HU16 - Registrar equipo.
+- HU17 - Editar equipo.
+- HU18 - Aprobar préstamo.
+
+Esto representa 12 de las 20 historias de usuario definidas para el proyecto.
+
+## Base de datos
+
+El proyecto utiliza MySQL.
+
+El repositorio contiene el script:
+
+`SGPE_script_BD.sql`
+
+Este script permite crear la estructura necesaria de la base de datos y cargar los datos iniciales utilizados para las pruebas.
+
+Las contraseñas de los usuarios se almacenan utilizando BCrypt.
+
+### Usuarios de prueba
+
+Administrador:
+
+- Usuario: `admin`
+- Contraseña: `Admin123.`
+
+Usuario solicitante:
+
+- Usuario: `andres`
+- Contraseña: `Usuario123.`
+
+Usuario solicitante:
+
+- Usuario: `maria`
+- Contraseña: `Usuario123.`
 
 ## Trabajo con ramas
 
-Se utilizará una rama principal llamada:
+Se utiliza una rama principal llamada:
 
 `main`
 
-Cada funcionalidad se trabajará en una rama independiente.
+Cada integrante realiza sus cambios desde una rama de trabajo propia.
 
 Ejemplos:
 
-- `feature/login`
-- `feature/equipos`
-- `feature/prestamos`
-- `feature/solicitudes`
-- `feature/internacionalizacion`
+- `Juan`
+- `hugo`
+- `feature/andres`
 
-Para correcciones se podrán utilizar ramas como:
-
-- `fix/validacion-fechas`
-- `fix/error-navegacion`
+Los cambios desarrollados en las ramas se integran a `main` mediante Pull Requests.
 
 ## Acuerdos del equipo
 
 - No trabajar directamente sobre `main`.
 - Cada integrante debe trabajar desde su propia cuenta de GitHub.
-- Los cambios deben realizarse en una rama.
+- Cada integrante debe realizar sus cambios desde su rama de trabajo.
+- Antes de comenzar a desarrollar se debe actualizar el proyecto con los cambios de `main`.
 - Los commits deben describir el trabajo realizado.
-- Cuando una funcionalidad esté lista, se debe crear un Pull Request.
-- Otro integrante debe revisar el Pull Request antes de unirlo a `main`.
+- Cuando el trabajo esté listo, se debe crear un Pull Request hacia `main`.
+- Otro integrante debe revisar los cambios antes de realizar el merge.
 - Todos los integrantes deben mantener actualizado su proyecto con los cambios de `main`.
 
 ## Relación entre historias y tareas
 
-Las historias de usuario servirán como base para crear las tareas del proyecto.
+Las historias de usuario se encuentran registradas como Issues dentro del repositorio de GitHub.
+
+Cada Issue representa una funcionalidad que debe ser desarrollada por uno de los integrantes.
 
 Ejemplos:
 
-- Historia: `HU11 - Solicitar préstamo`
-- Tarea: Crear formulario de solicitud de préstamo
-- Rama: `feature/hu11-solicitar-prestamo`
+- `HU10 - Consultar disponibilidad`
+- `HU11 - Solicitar préstamo`
+- `HU12 - Seleccionar y validar fechas`
+- `HU16 - Registrar equipo`
+- `HU17 - Editar equipo`
+- `HU18 - Aprobar préstamo`
 
-- Historia: `HU16 - Registrar equipo`
-- Tarea: Crear formulario para registrar equipos
-- Rama: `feature/hu16-registrar-equipo`
+Los Issues permiten identificar las funcionalidades pendientes, las funcionalidades en desarrollo y las historias que ya fueron implementadas.
 
 ## Commits
 
-Se utilizarán mensajes sencillos y descriptivos.
+Se utilizan mensajes sencillos y descriptivos.
 
-Ejemplos:
-
-- `feat: agregar pantalla de equipos`
-- `feat: agregar solicitud de préstamo`
-- `fix: corregir validación de fechas`
-- `docs: actualizar README`
-
-## Ejecución preliminar
+## Ejecución del proyecto
 
 1. Clonar el repositorio.
-2. Abrir el proyecto en Apache NetBeans.
-3. Utilizar JDK 21.
-4. Ejecutar el proyecto Spring Boot.
-5. Abrir en el navegador:
+2. Ejecutar el script `SGPE_script_BD.sql` en MySQL.
+3. Verificar la configuración de conexión en `application.properties`.
+4. Abrir el proyecto en Apache NetBeans.
+5. Utilizar JDK 21.
+6. Ejecutar el proyecto Spring Boot.
+7. Abrir en el navegador:
 
 `http://localhost:8080`
+
+8. Iniciar sesión utilizando alguno de los usuarios de prueba.
+
+## Trabajo colaborativo
+
+El desarrollo del proyecto se realiza mediante GitHub.
+
+Cada integrante cuenta con aportes dentro del repositorio mediante:
+
+- Ramas de trabajo.
+- Commits.
+- Issues.
+- Pull Requests.
+- Revisión de cambios.
+- Integración controlada hacia la rama `main`.
+
+El repositorio se mantiene actualizado con los avances realizados por cada integrante.
 
 ## Material complementario: prototipo navegable y archivo de diseño en Figma. 
 
