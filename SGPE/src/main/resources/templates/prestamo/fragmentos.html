@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+        <!-- HU18 - Solicitudes pendientes de aprobación -->
+        <section th:fragment="pendientes">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">[[#{prestamo.pendientes}]]</h1>
+
+                <span class="badge text-bg-primary fs-6">
+                    [[#{prestamo.totalPendientes}]]: [[${totalPendientes}]]
+                </span>
+            </div>
+
+            <div th:if="${#lists.isEmpty(solicitudes)}"
+                 class="alert alert-info">
+                [[#{prestamo.sinPendientes}]]
+            </div>
+
+            <div th:unless="${#lists.isEmpty(solicitudes)}"
+                 class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>[[#{solicitud.numero}]]</th>
+                            <th>[[#{prestamo.solicitante}]]</th>
+                            <th>[[#{solicitud.equipo}]]</th>
+                            <th>[[#{prestamo.estadoEquipo}]]</th>
+                            <th>[[#{solicitud.fechaSolicitud}]]</th>
+                            <th>[[#{solicitud.fechaInicio}]]</th>
+                            <th>[[#{solicitud.fechaDevolucion}]]</th>
+                            <th>[[#{solicitud.observaciones}]]</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="s : ${solicitudes}">
+                            <td th:text="${s.idPrestamo}"></td>
+
+                            <td>
+                                <span th:text="${s.usuarioSolicitante.nombreUsuario + ' ' + s.usuarioSolicitante.apellido1}"></span>
+                                <br/>
+                                <small class="texto-secundario"
+                                       th:text="${s.usuarioSolicitante.username}"></small>
+                            </td>
+
+                            <td>
+                                <a th:href="@{/equipo/detalle/{id}(id=${s.equipo.idEquipo})}"
+                                   th:text="${s.equipo.nombreEquipo}"></a>
+                            </td>
+
+                            <td>
+                                <span class="badge"
+                                      th:classappend="${s.equipo.estado.nombreEstado == 'DISPONIBLE'} ? 'text-bg-success' : 'text-bg-warning'"
+                                      th:text="${s.equipo.estado.nombreEstado}">
+                                </span>
+                            </td>
+
+                            <td th:text="${s.fechaSolicitud != null ? #temporals.format(s.fechaSolicitud, 'dd/MM/yyyy HH:mm') : ''}"></td>
+
+                            <td th:text="${#temporals.format(s.fechaInicio, 'dd/MM/yyyy')}"></td>
+
+                            <td th:text="${#temporals.format(s.fechaDevolucionLimite, 'dd/MM/yyyy')}"></td>
+
+                            <td th:text="${s.observacionesPrestamo}"></td>
+
+                            <td>
+                                <form th:action="@{/prestamo/aprobar}"
+                                      method="post"
+                                      class="mb-0"
+                                      th:data-confirmar="#{prestamo.confirmarAprobar}">
+                                    <input type="hidden"
+                                           name="idPrestamo"
+                                           th:value="${s.idPrestamo}"/>
+
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm"
+                                            th:disabled="${s.equipo.estado.nombreEstado != 'DISPONIBLE'}">
+                                        <i class="fas fa-check"></i> [[#{prestamo.aprobar}]]
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>

@@ -14,4 +14,7 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
     Optional<Prestamo> findByIdPrestamoAndUsuarioSolicitante_Username(
             Integer idPrestamo, String username);
+
+    List<Prestamo> findByEstado_NombreEstadoOrderByFechaSolicitudAsc(
+            String nombreEstado);
 }

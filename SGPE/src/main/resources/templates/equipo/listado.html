@@ -8,7 +8,17 @@
         <header th:replace="~{general/fragmentos :: header}"></header>
 
         <main class="container mt-4">
-            <h2>Listado de equipos</h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Listado de equipos</h2>
+
+                <a th:if="${esAdmin}"
+                   class="btn btn-success"
+                   th:href="@{/equipo/nuevo}">
+                    <i class="fas fa-plus"></i> [[#{equipo.registrar}]]
+                </a>
+            </div>
+
+            <div th:replace="~{general/fragmentos :: alertas}"></div>
 
             <form th:action="@{/equipo/listado}" method="get" class="row g-2 mb-3">
                 <div class="col-md-8">
@@ -54,6 +64,11 @@
                                 <a class="btn btn-outline-primary btn-sm"
                                    th:href="@{/equipo/detalle/{id}(id=${equipo.idEquipo})}">
                                     Ver detalle
+                                </a>
+                                <a th:if="${esAdmin}"
+                                   class="btn btn-warning btn-sm"
+                                   th:href="@{/equipo/modificar/{id}(id=${equipo.idEquipo})}">
+                                    <i class="fas fa-pencil-alt"></i> [[#{accion.editar}]]
                                 </a>
                             </td>
                         </tr>
