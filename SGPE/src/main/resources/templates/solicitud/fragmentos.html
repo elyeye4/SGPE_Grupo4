@@ -120,14 +120,101 @@
                         <dd class="col-sm-8"
                             th:text="${solicitud.observacionesPrestamo}">
                         </dd>
+                        <dt class="col-sm-4"
+                            th:if="${solicitud.estado.nombreEstado == 'DEVUELTO'}">
+                            [[#{solicitud.fechaDevolucionReal}]]
+                        </dt>
+
+                        <dd class="col-sm-8"
+                            th:if="${solicitud.estado.nombreEstado == 'DEVUELTO'}"
+                            th:text="${solicitud.fechaEntrega}">
+                        </dd>
                     </dl>
                 </div>
+
             </div>
 
-            <a class="btn btn-secondary mt-3"
-               th:href="@{/solicitud/mis-solicitudes}">
-                [[#{solicitud.regresar}]]
-            </a>
+            <!-- HU14 -->
+            <div class="d-flex align-items-center gap-2 mt-3">
+
+                <a th:unless="${param.desdeHistorial != null}"
+                   class="btn btn-secondary"
+                   th:href="@{/solicitud/mis-solicitudes}">
+                    [[#{solicitud.regresar}]]
+                </a>
+
+                <a th:if="${param.desdeHistorial != null}"
+                   class="btn btn-secondary"
+                   th:href="@{/solicitud/historial}">
+                    [[#{solicitud.regresarHistorial}]]
+                </a>
+
+                <form th:if="${solicitud.estado.nombreEstado == 'PENDIENTE'}"
+                      th:action="@{/solicitud/cancelar}"
+                      method="post"
+                      th:data-confirmar="#{solicitud.confirmarCancelar}">
+
+                    <input type="hidden"
+                           name="idPrestamo"
+                           th:value="${solicitud.idPrestamo}"/>
+
+                    <button type="submit" class="btn btn-danger">
+                        [[#{solicitud.cancelar}]]
+                    </button>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- HU15 - Historial de préstamos -->
+        <section th:fragment="historial">
+
+            <h2 class="mb-4">[[#{solicitud.historial}]]</h2>
+
+            <div th:if="${#lists.isEmpty(solicitudes)}"
+                 class="alert alert-info">
+                [[#{solicitud.historialVacio}]]
+            </div>
+
+            <div th:unless="${#lists.isEmpty(solicitudes)}"
+                 class="table-responsive">
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>[[#{solicitud.numero}]]</th>
+                            <th>[[#{solicitud.equipo}]]</th>
+                            <th>[[#{solicitud.fechaInicio}]]</th>
+                            <th>[[#{solicitud.fechaDevolucionReal}]]</th>
+                            <th>[[#{solicitud.estado}]]</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="solicitud : ${solicitudes}">
+                            <td th:text="${solicitud.idPrestamo}"></td>
+                            <td th:text="${solicitud.equipo.nombreEquipo}"></td>
+                            <td th:text="${solicitud.fechaInicio}"></td>
+                            <td th:text="${solicitud.fechaEntrega}"></td>
+                            <td>
+                                <span class="badge bg-secondary"
+                                      th:text="${solicitud.estado.nombreEstado}">
+                                </span>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm"
+                                   th:href="@{/solicitud/detalle/{id}(id=${solicitud.idPrestamo},desdeHistorial=true)}">
+                                    [[#{solicitud.verDetalle}]]
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
         </section>
     </body>
 </html>

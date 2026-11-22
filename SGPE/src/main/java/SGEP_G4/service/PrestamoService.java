@@ -124,4 +124,44 @@ public class PrestamoService {
 
         return prestamoRepository.save(prestamo);
     }
+
+    // HU14 - Cancelar una solicitud pendiente
+    @Transactional
+    public Prestamo cancelarSolicitud(Integer idPrestamo, String username) {
+
+        var prestamo = prestamoRepository
+                .findByIdPrestamoAndUsuarioSolicitante_Username(
+                        idPrestamo, username)
+                .orElseThrow(() -> new IllegalStateException(
+                "prestamo.error.noExiste"));
+
+        if (!"PENDIENTE".equals(prestamo.getEstado().getNombreEstado())) {
+            throw new IllegalStateException("solicitud.error.noPendiente");
+        }
+
+        var cancelado = estadoRepository.findByNombreEstado("CANCELADO")
+                .orElseThrow();
+
+        prestamo.setEstado(cancelado);
+
+        var movimiento = new Movimiento();
+        movimiento.setPrestamo(prestamo);
+        movimiento.setUsuario(prestamo.getUsuarioSolicitante());
+        movimiento.setTipoMovimiento("SOLICITUD_CANCELADA");
+        movimiento.setDescripcionMovimiento(
+                "El usuario canceló la solicitud de préstamo.");
+        movimiento.setEstado(cancelado);
+        movimiento.setFechaMovimiento(LocalDateTime.now());
+        movimientoRepository.save(movimiento);
+
+        return prestamoRepository.save(prestamo);
+    }
+
+    // HU15 - Consultar historial de préstamos finalizados
+    @Transactional(readOnly = true)
+    public List<Prestamo> getMiHistorial(String username) {
+        return prestamoRepository
+                .findByUsuarioSolicitante_UsernameAndEstado_NombreEstadoOrderByFechaInicioDesc(
+                        username, "DEVUELTO");
+    }
 }

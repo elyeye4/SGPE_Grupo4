@@ -17,4 +17,8 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Integer> {
 
     List<Prestamo> findByEstado_NombreEstadoOrderByFechaSolicitudAsc(
             String nombreEstado);
+
+    // HU15 - Historial de préstamos finalizados
+    List<Prestamo> findByUsuarioSolicitante_UsernameAndEstado_NombreEstadoOrderByFechaInicioDesc(
+            String username, String nombreEstado);
 }
